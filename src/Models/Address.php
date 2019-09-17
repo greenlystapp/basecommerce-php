@@ -38,27 +38,7 @@ class Address extends Arrayable
      */
     private $country;
 
-    /**
-     * Address constructor.
-     * @param $name
-     * @param $addressLine1
-     * @param $addressLine2
-     * @param $city
-     * @param $state
-     * @param $zipCode
-     * @param $country
-     */
-    public function __construct($name, $addressLine1, $addressLine2, $city, $state, $zipCode, $country)
-    {
-        $this->name = $name;
-        $this->addressLine1 = $addressLine1;
-        $this->addressLine2 = $addressLine2;
-        $this->city = $city;
-        $this->state = $state;
-        $this->zipCode = $zipCode;
-        $this->country = $country;
-    }
-
+    const TYPE_BILLING = 'BILLING';
     /**
      * @return mixed
      */
@@ -116,27 +96,86 @@ class Address extends Arrayable
     }
 
     /**
+     * @param mixed $name
+     */
+    public function setName($name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param mixed $addressLine1
+     */
+    public function setAddressLine1($addressLine1): void
+    {
+        $this->addressLine1 = $addressLine1;
+    }
+
+    /**
+     * @param mixed $addressLine2
+     */
+    public function setAddressLine2($addressLine2): void
+    {
+        $this->addressLine2 = $addressLine2;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city): void
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @param mixed $state
+     */
+    public function setState($state): void
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * @param mixed $zipCode
+     */
+    public function setZipCode($zipCode): void
+    {
+        $this->zipCode = $zipCode;
+    }
+
+    /**
+     * @param mixed $country
+     */
+    public function setCountry($country): void
+    {
+        $this->country = $country;
+    }
+
+    /**
      * @param $data
      * @return Address
      */
     public function fromArray(array $data): self
     {
-        return new static(
-            array_get($data, 'address_name'),
-            array_get($data, 'address_line1'),
-            array_get($data, 'address_line2'),
-            array_get($data, 'address_city'),
-            array_get($data, 'address_state'),
-            array_get($data, 'address_zipcode'),
-            array_get($data, 'address_country'));
+        $instance = new static();
+
+        $instance->setName(array_get($data, 'address_name'));
+        $instance->setAddressLine1(array_get($data, 'address_line1'));
+        $instance->setAddressLine2(array_get($data, 'address_line2'));
+        $instance->setCity(array_get($data, 'address_city'));
+        $instance->setState(array_get($data, 'address_state'));
+        $instance->setZipCode(array_get($data, 'address_zipcode'));
+        $instance->setCountry(array_get($data, 'address_country'));
+
+        return $instance;
     }
 
     /**
      * @return array
      */
-    protected function toArray(): array
+    public function toArray(): array
     {
-        return [
+        return clear_array([
             'address_name' => $this->getName(),
             'address_line1' => $this->getAddressLine1(),
             'address_line2' => $this->getAddressLine2(),
@@ -144,6 +183,6 @@ class Address extends Arrayable
             'address_state' => $this->getState(),
             'address_zipcode' => $this->getZipCode(),
             'address_country' => $this->getCountry()
-        ];
+        ]);
     }
 }

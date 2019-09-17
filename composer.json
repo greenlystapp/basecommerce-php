@@ -23,13 +23,15 @@
     "ext-openssl": "*",
     "ext-json": "*",
     "nesbot/carbon": "^2.0",
-    "guzzlehttp/guzzle": "^6.3",
     "jdrieghe/array-helpers": "^0.2.0"
   },
   "autoload": {
     "psr-4": {
       "Greenlyst\\BaseCommerce\\": "src/"
-    }
+    },
+    "files": [
+      "src/helpers.php"
+    ]
   },
   "minimum-stability": "dev",
   "prefer-stable": true

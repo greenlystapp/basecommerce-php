@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Greenlyst\BaseCommerce\Core;
 
-use Exception;
-
 final class TripleDESService
 {
     private $io_key;

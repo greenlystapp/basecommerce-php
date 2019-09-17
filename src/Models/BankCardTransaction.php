@@ -55,21 +55,21 @@ class BankCardTransaction extends Arrayable
     private $customField8;
     private $customField9;
     private $customField10;
-    private $dessages;
+    private $messages;
     private $bankCardTransactionSettlementDate;
     private $bankCardTransactionCreationDate;
     private $cipherPayUuid;
     private $fundingInstructions;
-    private $isTransactionSettlementDescriptor;
-    private $is_transaction_authorization_descriptor;
-    private $ib_authenticated = FALSE;
-    private $io_funding_date;
-    private $is_eci_indicator;
-    private $is_xid;
-    private $is_cavv;
-    private $is_chip_card_data;
-    private $is_card_sequence_number;
-    private $is_emv_fallback_reason;
+    private $transactionSettlementDescriptor;
+    private $transactionAuthorizationDescriptor;
+    private $authenticated = false;
+    private $fundingDate;
+    private $eci_Indicator;
+    private $xid;
+    private $cavv;
+    private $chipCardData;
+    private $cardSequenceNumber;
+    private $emvFallbackReason;
 
     const URI_PROCESS_BANK_CARD_TRANSACTION = '/pcms/?f=API_processBankCardTransactionV4';
 
@@ -83,11 +83,12 @@ class BankCardTransaction extends Arrayable
     }
 
 
+
     /**
      * @throws ClientException
      * @throws GuzzleException
      */
-    public function process()
+    public function processTransaction()
     {
         $data = array_merge($this->client->toArray(), [
             'payload' => $this->client->getTripleDESService()->encrypt($this->toArray())
@@ -106,11 +107,10 @@ class BankCardTransaction extends Arrayable
     {
         $instance = new static($this->client);
 
-
         return $instance;
     }
 
-    protected function toArray(): array
+    public function toArray(): array
     {
         return [];
     }

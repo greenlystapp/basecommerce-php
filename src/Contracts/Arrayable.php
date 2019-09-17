@@ -8,5 +8,5 @@ abstract class Arrayable
 {
     public abstract function fromArray(array $data);
 
-    protected abstract function toArray(): array;
+    public abstract function toArray(): array;
 }

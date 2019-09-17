@@ -2,30 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Greenlyst\BaseCommerce\Models;
+namespace Greenlyst\BaseCommerce\Traits;
 
 use Greenlyst\BaseCommerce\Client;
 
-class BankCard
+trait HasClient
 {
     /**
      * @var Client
      */
     private $client;
 
-    private $name;
-
-
-
     /**
-     * BankCard constructor.
-     * @param Client $client
+     * @param $client
      */
-    public function __construct(Client $client)
+    public function setClient($client)
     {
         $this->client = $client;
     }
-
-
-
 }
