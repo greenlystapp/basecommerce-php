@@ -1,0 +1,13 @@
+{
+  "name": "BaseCommerce_PHP_SDK",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "vuepress dev docs --port $PORT",
+    "build": "vuepress build && mv .vuepress/dist public && cp now.json public && cd public && now --prod && cd .. && rm -rf public"
+  },
+  "devDependencies": {
+    "vuepress": "^0.14.4"
+  }
+}

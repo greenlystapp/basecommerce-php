@@ -10,7 +10,10 @@ module.exports = [
         children: prefix('sdk', [
             'client',
             'card',
-            'bank-account'
+            'bank-account',
+            'transactions',
+            'webhooks',
+            'errors',
         ]),
     },
     {

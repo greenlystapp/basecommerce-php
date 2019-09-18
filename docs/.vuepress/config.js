@@ -1,6 +1,6 @@
 module.exports = {
     title: 'BaseCommerce PHP SDK',
-    description: 'PHP SDK for integrating BaseCommerce Payments',
+    description: 'Unofficial PHP SDK for BaseCommerce Payments',
     head: [
         [
             'link',
@@ -11,9 +11,19 @@ module.exports = {
                 type: 'text/css',
             },
         ],
+        [
+            'link',
+            {
+                href:
+                    '/css/custom.css',
+                rel: 'stylesheet',
+                type: 'text/css',
+            },
+        ],
     ],
     themeConfig: {
-        // logo: '/assets/img/logo.svg',
+        logo: '/logo_wide.jpg',
+        siteTitle: false,
         displayAllHeaders: true,
         sidebarDepth: 1,
         nav: [
@@ -27,4 +37,7 @@ module.exports = {
             '/1.0/': require('./1.0')
         },
     },
+    plugins: [
+        ['@vuepress/back-to-top', true],
+    ]
 }

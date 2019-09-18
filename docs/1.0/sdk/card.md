@@ -152,9 +152,3 @@ $card->setClient($client);
 $instance = $card->delete();
 
 ```
-
-## Transaction with a stored Card
-
-## Transaction without Saving a Card
-
-## Recurring Transaction with a stored Card 

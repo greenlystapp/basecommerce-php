@@ -1,0 +1,11 @@
+.site-name {
+    display: none !important;
+}
+
+.sidebar {
+    background-color: #3eaf7c !important;
+}
+
+.sidebar-heading, a.sidebar-link, a.sidebar-link.active {
+    color: #fff !important;
+}
