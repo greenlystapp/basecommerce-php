@@ -4,10 +4,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "vuepress dev docs --port $PORT",
+    "dev": "vuepress dev",
     "build": "vuepress build && mv .vuepress/dist public && cp now.json public && cd public && now --prod && cd .. && rm -rf public"
-  },
-  "devDependencies": {
-    "vuepress": "^0.14.4"
   }
 }

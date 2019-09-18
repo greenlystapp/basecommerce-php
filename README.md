@@ -1,8 +1,6 @@
 # Introduction
 
-:::danger
-    This project is still a work in progress. This is not Production ready yet.
-:::
+ <h2 style="color:red;">This project is still a work in progress. This is not Production ready yet.</h2>
 
 To take a test drive of our SDK on the sandbox environment. 
 
