@@ -2,3 +2,4 @@ vendor
 .idea
 test.php
 docs/deploy.sh
+docs/node_modules

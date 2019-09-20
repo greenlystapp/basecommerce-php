@@ -6,7 +6,7 @@ module.exports = [
     },
     {
         title: 'Using the SDK',
-        collapsable: false,
+        collapsable: true,
         children: prefix('sdk', [
             'client',
             'card',
@@ -18,10 +18,12 @@ module.exports = [
     },
     {
         title: 'API Reference',
-        collapsable: false,
+        collapsable: true,
         children: prefix('api', [
             'client',
-            'card'
+            'card',
+            'transaction',
+            'recurring'
         ])
     }
 ];

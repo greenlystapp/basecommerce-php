@@ -6,14 +6,14 @@ namespace Greenlyst\BaseCommerce\Models;
 
 use Carbon\Carbon;
 use Greenlyst\BaseCommerce\ClientException;
-use Greenlyst\BaseCommerce\Traits\HasClient;
-use GuzzleHttp\Exception\GuzzleException;
-use function ArrayHelpers\array_get;
-use function ArrayHelpers\array_has;
+use Greenlyst\BaseCommerce\Core\Helpers;
+use Greenlyst\BaseCommerce\LogicException;
+use Greenlyst\BaseCommerce\Traits\{HasClient, HasErrorMessages};
+use function ArrayHelpers\{array_get, array_has};
 
 class Card
 {
-    use HasClient;
+    use HasClient, HasErrorMessages;
 
     private $name;
     private $cardNumber;
@@ -23,15 +23,17 @@ class Card
     private $status;
     private $billingAddress;
     private $creationDate;
-    private $lastUsedDate;
-    private $messages;
     private $alias;
     private $expirationDate;
+    private $amount;
+    private $recurring;
 
     const CUSTOM_FIELD_PREFIX_BANK_CARD_TRANSACTION = 'bank_card_transaction';
     const CUSTOM_FIELD_PREFIX_RECURRING_TRANSACTION = 'recurring_transaction';
 
     const STATUS_DELETED = 'DELETED';
+    const STATUS_FAILED = 'FAILED';
+    const STATUS_ACTIVE = 'ACTIVE';
 
     const URI_ADD_BANK_CARD = '/pcms/?f=API_addBankCardV4';
     const URI_UPDATE_BANK_CARD = '/pcms/?f=API_updateBankCardV4';
@@ -158,27 +160,11 @@ class Card
     }
 
     /**
-     * @return mixed
-     */
-    public function getMessages()
-    {
-        return $this->messages;
-    }
-
-    /**
      * @param mixed $creationDate
      */
     public function setCreationDate($creationDate): void
     {
         $this->creationDate = $creationDate;
-    }
-
-    /**
-     * @param mixed $messages
-     */
-    public function setMessages($messages): void
-    {
-        $this->messages = $messages;
     }
 
     /**
@@ -198,60 +184,100 @@ class Card
     }
 
     /**
+     * @return mixed
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * @param mixed $amount
+     */
+    public function setAmount($amount): void
+    {
+        $this->amount = $amount;
+    }
+
+
+
+    /**
+     * @return Recurring
+     */
+    public function getRecurring()
+    {
+        return $this->recurring;
+    }
+
+    /**
+     * @param Recurring $recurring
+     */
+    public function setRecurring($recurring): void
+    {
+        $this->recurring = $recurring;
+    }
+
+    /**
      * @return Card
      *
      * @throws ClientException
+     * @throws LogicException
      */
-    public function add()
+    public function add(): Card
     {
+        validate_array($this->toCreateCardArray(), [
+                'bank_card_name', 'bank_card_number', 'bank_card_expiration_month', 'bank_card_expiration_year'
+            ]
+        );
+
         $response = $this->client->postRequest(self::URI_ADD_BANK_CARD, json_encode($this->toCreateCardArray()));
 
         $instance = $this->fromCardArray($response['bank_card']);
+
+        $this->handleMessages($response);
 
         return $instance;
     }
 
     /**
      * @return $this
+     *
      * @throws ClientException
+     * @throws LogicException
      */
-    public function update()
+    public function update(): Card
     {
+        validate_array($this->toCreateCardArray(), [
+                'bank_card_token', 'bank_card_expiration_month', 'bank_card_expiration_year'
+            ]
+        );
+
         $response = $this->client->postRequest(self::URI_UPDATE_BANK_CARD, json_encode($this->toUpdateCardArray()));
 
         $instance = $this->fromCardArray($response['bank_card']);
 
+        $instance->handleMessages($response);
+
         return $instance;
     }
 
-    public function delete()
+    /**
+     * @return Card
+     *
+     * @throws ClientException
+     * @throws LogicException
+     */
+    public function delete(): Card
     {
+        validate_array($this->toCreateCardArray(), ['bank_card_token']);
+
         $response = $this->client->postRequest(self::URI_DELETE_BANK_CARD, array_get($this->toDeleteCardArray(), 'bank_card_token'));
 
         $instance = $this->fromCardArray($response['bank_card']);
 
+        $instance->handleMessages($response);
+
         return $instance;
-    }
-
-    public function createTransaction()
-    {
-
-    }
-
-    public function createTransactionWithoutStoringBankCard()
-    {
-
-    }
-
-    public function createRecurringTransaction()
-    {
-
-    }
-
-
-    protected function getCustomFieldPrefix(): string
-    {
-
     }
 
     private function fromCardArray(array $data)
@@ -285,7 +311,7 @@ class Card
         return $instance;
     }
 
-    private function toCreateCardArray(): array
+    public function toCreateCardArray(): array
     {
         return clear_array([
             'bank_card_name' => $this->getName(),
@@ -294,8 +320,7 @@ class Card
             'bank_card_expiration_year' => $this->getCardExpirationYear(),
             'bank_card_token' => $this->getToken(),
             'bank_card_billing_address' => $this->getBillingAddress() ? $this->getBillingAddress()->toArray() : null,
-            'bank_card_alias' => $this->getAlias(),
-            'messages' => []
+            'bank_card_alias' => $this->getAlias()
         ]);
     }
 
@@ -309,7 +334,7 @@ class Card
         ]);
     }
 
-    public function toDeleteCardArray(): array
+    private function toDeleteCardArray(): array
     {
         return clear_array([
             'bank_card_token' => $this->getToken()

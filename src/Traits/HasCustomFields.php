@@ -27,6 +27,11 @@ trait HasCustomFields
             throw LogicException::only10CustomFieldsAreAllowed();
         }
 
-        $this->customFields[] = $value;
+        $this->customFields[$this->getCustomFieldPrefix() . '_custom_field' . (count($this->customFields) + 1)] = $value;
+    }
+
+    public function getCustomFields()
+    {
+        return $this->customFields;
     }
 }

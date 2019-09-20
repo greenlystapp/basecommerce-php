@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Greenlyst\BaseCommerce;
 
 use Greenlyst\BaseCommerce\Core\TripleDESService;
-use GuzzleHttp\Exception\GuzzleException;
 
 final class Client
 {
@@ -51,7 +50,7 @@ final class Client
     public function postRequest($uri, $data, $retryCounter = 0)
     {
         $data = array_merge($this->toArray(), [
-            'payload' => $this->getTripleDESService()->encrypt($data)
+            'payload' => $this->getTripleDESService()->encrypt((string)$data)
         ]);
 
         $response = $this->sendRequest($uri, $data);
@@ -163,7 +162,6 @@ final class Client
      * @return array
      *
      * @throws ClientException
-     * @throws GuzzleException
      */
     private function checkErrorsAndRetryRequest($retryCounter, $uri, $data): array
     {
@@ -220,7 +218,6 @@ final class Client
      * @return array
      *
      * @throws ClientException
-     * @throws GuzzleException
      */
     private function processResponse($response, $retryCounter, $uri, $data): array
     {
@@ -236,6 +233,7 @@ final class Client
 
         $trimmedResponse = trim($decrypted_response, "\x00..\x1F");
 
+        echo $trimmedResponse;
         fclose($response);
 
         return json_decode($trimmedResponse, true);
