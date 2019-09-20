@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Greenlyst\BaseCommerce\Models;
 
+use function ArrayHelpers\array_get;
+use function ArrayHelpers\array_has;
 use Carbon\Carbon;
 use Greenlyst\BaseCommerce\ClientException;
-use Greenlyst\BaseCommerce\Core\Helpers;
 use Greenlyst\BaseCommerce\LogicException;
-use Greenlyst\BaseCommerce\Traits\{HasClient, HasErrorMessages};
-use function ArrayHelpers\{array_get, array_has};
+use Greenlyst\BaseCommerce\Traits\HasClient;
+use Greenlyst\BaseCommerce\Traits\HasErrorMessages;
 
 class Card
 {
@@ -199,8 +200,6 @@ class Card
         $this->amount = $amount;
     }
 
-
-
     /**
      * @return Recurring
      */
@@ -218,15 +217,15 @@ class Card
     }
 
     /**
-     * @return Card
-     *
      * @throws ClientException
      * @throws LogicException
+     *
+     * @return Card
      */
-    public function add(): Card
+    public function add(): self
     {
         validate_array($this->toCreateCardArray(), [
-                'bank_card_name', 'bank_card_number', 'bank_card_expiration_month', 'bank_card_expiration_year'
+                'bank_card_name', 'bank_card_number', 'bank_card_expiration_month', 'bank_card_expiration_year',
             ]
         );
 
@@ -240,15 +239,15 @@ class Card
     }
 
     /**
-     * @return $this
-     *
      * @throws ClientException
      * @throws LogicException
+     *
+     * @return $this
      */
-    public function update(): Card
+    public function update(): self
     {
         validate_array($this->toCreateCardArray(), [
-                'bank_card_token', 'bank_card_expiration_month', 'bank_card_expiration_year'
+                'bank_card_token', 'bank_card_expiration_month', 'bank_card_expiration_year',
             ]
         );
 
@@ -262,12 +261,12 @@ class Card
     }
 
     /**
-     * @return Card
-     *
      * @throws ClientException
      * @throws LogicException
+     *
+     * @return Card
      */
-    public function delete(): Card
+    public function delete(): self
     {
         validate_array($this->toCreateCardArray(), ['bank_card_token']);
 
@@ -295,7 +294,7 @@ class Card
         $instance->setCreationDate(Carbon::parse(array_get($data, 'bank_card_creation_date_24hr'))->toDateTime());
 
         if (array_has($data, 'bank_card_status')) {
-            if (gettype(array_get($data, 'bank_card_status')) === "array") {
+            if (gettype(array_get($data, 'bank_card_status')) === 'array') {
                 $instance->setStatus(array_get($data, 'bank_card_status.bank_card_status_name'));
             } else {
                 $instance->setStatus(array_get($data, 'bank_card_status'));
@@ -314,13 +313,13 @@ class Card
     public function toCreateCardArray(): array
     {
         return clear_array([
-            'bank_card_name' => $this->getName(),
-            'bank_card_number' => $this->getCardNumber(),
+            'bank_card_name'             => $this->getName(),
+            'bank_card_number'           => $this->getCardNumber(),
             'bank_card_expiration_month' => $this->getCardExpirationMonth(),
-            'bank_card_expiration_year' => $this->getCardExpirationYear(),
-            'bank_card_token' => $this->getToken(),
-            'bank_card_billing_address' => $this->getBillingAddress() ? $this->getBillingAddress()->toArray() : null,
-            'bank_card_alias' => $this->getAlias()
+            'bank_card_expiration_year'  => $this->getCardExpirationYear(),
+            'bank_card_token'            => $this->getToken(),
+            'bank_card_billing_address'  => $this->getBillingAddress() ? $this->getBillingAddress()->toArray() : null,
+            'bank_card_alias'            => $this->getAlias(),
         ]);
     }
 
@@ -328,16 +327,16 @@ class Card
     {
         return clear_array([
             'bank_card_expiration_month' => $this->getCardExpirationMonth(),
-            'bank_card_expiration_year' => $this->getCardExpirationYear(),
-            'bank_card_token' => $this->getToken(),
-            'bank_card_billing_address' => $this->getBillingAddress() ? $this->getBillingAddress()->toArray() : null,
+            'bank_card_expiration_year'  => $this->getCardExpirationYear(),
+            'bank_card_token'            => $this->getToken(),
+            'bank_card_billing_address'  => $this->getBillingAddress() ? $this->getBillingAddress()->toArray() : null,
         ]);
     }
 
     private function toDeleteCardArray(): array
     {
         return clear_array([
-            'bank_card_token' => $this->getToken()
+            'bank_card_token' => $this->getToken(),
         ]);
     }
 }

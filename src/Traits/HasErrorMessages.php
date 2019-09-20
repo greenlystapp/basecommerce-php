@@ -26,8 +26,7 @@ trait HasErrorMessages
      */
     public function handleMessages(array $response): void
     {
-        if (array_has($response, "exception")) {
-
+        if (array_has($response, 'exception')) {
             foreach ($response['exception'] as $key => $errorMessage) {
                 $this->addMessage($errorMessage);
             }

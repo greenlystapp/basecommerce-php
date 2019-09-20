@@ -6,7 +6,7 @@ namespace Greenlyst\BaseCommerce\Contracts;
 
 abstract class Arrayable
 {
-    public abstract function fromArray(array $data);
+    abstract public function fromArray(array $data);
 
-    public abstract function toArray(): array;
+    abstract public function toArray(): array;
 }
