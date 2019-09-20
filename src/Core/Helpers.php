@@ -4,20 +4,23 @@ declare(strict_types=1);
 
 namespace Greenlyst\BaseCommerce\Core;
 
-use Greenlyst\BaseCommerce\LogicException;
 use function ArrayHelpers\array_has;
+use Greenlyst\BaseCommerce\LogicException;
 
 class Helpers
 {
     /**
      * @param $data
+     *
      * @return array
      */
     public static function clearArray($data)
     {
         return array_filter($data, function ($item) {
-            if ($item === null)
+            if ($item === null) {
                 return false;
+            }
+
             return true;
         });
     }
@@ -25,6 +28,7 @@ class Helpers
     /**
      * @param $array
      * @param $keys
+     *
      * @throws LogicException
      */
     public static function validateArray($array, $keys)
@@ -36,17 +40,17 @@ class Helpers
         }
     }
 
-
     /**
      * Get all of the given array except for a specified array of items.
      *
-     * @param array $array
+     * @param array        $array
      * @param array|string $keys
+     *
      * @return array
      */
     public static function array_except($array, $keys)
     {
-        return array_diff_key($array, array_flip((array)$keys));
+        return array_diff_key($array, array_flip((array) $keys));
     }
 
     public static function replaceArrayKeys($array, $search, $replace)
@@ -59,5 +63,4 @@ class Helpers
 
         return $newArray;
     }
-
 }

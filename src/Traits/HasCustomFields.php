@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Greenlyst\BaseCommerce\Traits;
-
 
 use Greenlyst\BaseCommerce\LogicException;
 
@@ -10,7 +8,7 @@ trait HasCustomFields
 {
     private $customFields = [];
 
-    protected abstract function getCustomFieldPrefix(): string;
+    abstract protected function getCustomFieldPrefix(): string;
 
     /**
      * @param $value
@@ -27,7 +25,7 @@ trait HasCustomFields
             throw LogicException::only10CustomFieldsAreAllowed();
         }
 
-        $this->customFields[$this->getCustomFieldPrefix() . '_custom_field' . (count($this->customFields) + 1)] = $value;
+        $this->customFields[$this->getCustomFieldPrefix().'_custom_field'.(count($this->customFields) + 1)] = $value;
     }
 
     public function getCustomFields()

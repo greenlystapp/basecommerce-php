@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Greenlyst\BaseCommerce\Models;
 
+use function ArrayHelpers\array_get;
+use function ArrayHelpers\array_set;
 use Carbon\Carbon;
 use Greenlyst\BaseCommerce\ClientException;
 use Greenlyst\BaseCommerce\Core\Helpers;
 use Greenlyst\BaseCommerce\LogicException;
 use Greenlyst\BaseCommerce\Traits\HasClient;
 use Greenlyst\BaseCommerce\Traits\HasErrorMessages;
-use function ArrayHelpers\array_get;
-use function ArrayHelpers\array_set;
 
 final class Transaction
 {
@@ -250,7 +250,7 @@ final class Transaction
         } else {
             Helpers::validateArray($this->toAuthorizeTransactionArray(), [
                 'bank_card_transaction_name', 'bank_card_transaction_card_number', 'bank_card_transaction_expiration_month',
-                'bank_card_transaction_expiration_year', 'bank_card_transaction_type', 'bank_card_transaction_amount'
+                'bank_card_transaction_expiration_year', 'bank_card_transaction_type', 'bank_card_transaction_amount',
             ]);
         }
 
@@ -258,9 +258,10 @@ final class Transaction
     }
 
     /**
-     * @return $this
      * @throws ClientException
      * @throws LogicException
+     *
+     * @return $this
      */
     public function capture()
     {
@@ -280,7 +281,7 @@ final class Transaction
         } else {
             Helpers::validateArray($this->toCreateTransactionArray(), [
                 'bank_card_transaction_name', 'bank_card_transaction_card_number', 'bank_card_transaction_expiration_month',
-                'bank_card_transaction_expiration_year', 'bank_card_transaction_type', 'bank_card_transaction_amount'
+                'bank_card_transaction_expiration_year', 'bank_card_transaction_type', 'bank_card_transaction_amount',
             ]);
         }
 
@@ -300,8 +301,10 @@ final class Transaction
 
     /**
      * @param $data
-     * @return $this
+     *
      * @throws ClientException
+     *
+     * @return $this
      */
     private function processTransaction($data)
     {
@@ -320,9 +323,9 @@ final class Transaction
     private function toRefundTransactionArray(): array
     {
         return clear_array([
-            'bank_card_transaction_id' => $this->getTransactionId(),
+            'bank_card_transaction_id'     => $this->getTransactionId(),
             'bank_card_transaction_amount' => $this->getAmount(),
-            'bank_card_transaction_type' => self::TRANSACTION_TYPE_REFUND
+            'bank_card_transaction_type'   => self::TRANSACTION_TYPE_REFUND,
         ]);
     }
 
@@ -336,27 +339,28 @@ final class Transaction
     }
 
     /**
-     * @return array
      * @throws LogicException
+     *
+     * @return array
      */
     private function toCreateTransactionArray(): array
     {
         if ($this->isCardTransaction()) {
             if ($this->isVaultTransaction()) {
                 return clear_array([
-                    'bank_card_transaction_type' => self::TRANSACTION_TYPE_SALE,
-                    'token' => $this->getCard()->getToken(),
-                    'bank_card_transaction_amount' => $this->getAmount()
+                    'bank_card_transaction_type'   => self::TRANSACTION_TYPE_SALE,
+                    'token'                        => $this->getCard()->getToken(),
+                    'bank_card_transaction_amount' => $this->getAmount(),
                 ]);
             } else {
                 return clear_array([
-                    'bank_card_transaction_name' => $this->getCard()->getName(),
-                    'bank_card_transaction_card_number' => $this->getCard()->getCardNumber(),
+                    'bank_card_transaction_name'             => $this->getCard()->getName(),
+                    'bank_card_transaction_card_number'      => $this->getCard()->getCardNumber(),
                     'bank_card_transaction_expiration_month' => $this->getCard()->getCardExpirationMonth(),
-                    'bank_card_transaction_expiration_year' => $this->getCard()->getCardExpirationYear(),
-                    'bank_card_transaction_billing_address' => $this->getCard()->getBillingAddress() ? $this->getCard()->getBillingAddress()->toArray() : null,
-                    'bank_card_transaction_type' => self::TRANSACTION_TYPE_SALE,
-                    'bank_card_transaction_amount' => $this->getAmount()
+                    'bank_card_transaction_expiration_year'  => $this->getCard()->getCardExpirationYear(),
+                    'bank_card_transaction_billing_address'  => $this->getCard()->getBillingAddress() ? $this->getCard()->getBillingAddress()->toArray() : null,
+                    'bank_card_transaction_type'             => self::TRANSACTION_TYPE_SALE,
+                    'bank_card_transaction_amount'           => $this->getAmount(),
                 ]);
             }
         } else {
@@ -365,8 +369,9 @@ final class Transaction
     }
 
     /**
-     * @return array
      * @throws LogicException
+     *
+     * @return array
      */
     private function toAuthorizeTransactionArray(): array
     {

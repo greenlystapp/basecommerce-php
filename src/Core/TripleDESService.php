@@ -9,7 +9,7 @@ final class TripleDESService
     private $io_key;
 
     /**
-     * Creates a new TripleDESService using the provided HEX encoded String which will be converted back to bytes and used to generate the Key
+     * Creates a new TripleDESService using the provided HEX encoded String which will be converted back to bytes and used to generate the Key.
      *
      * @param $key string HEX encoded string to create Key from
      */
@@ -18,16 +18,16 @@ final class TripleDESService
         if (function_exists('hex2bin')) {
             $this->io_key = hex2bin($key);
         } else {
-            $sbin = "";
+            $sbin = '';
             for ($i = 0; $i < strlen($key); $i += 2) {
-                $sbin .= pack("H*", substr($key, $i, 2));
+                $sbin .= pack('H*', substr($key, $i, 2));
             }
             $this->io_key = $sbin;
         }
     }
 
     /**
-     * Encrypts the plain text that is provided using the Key this TripleDESService was initialized with
+     * Encrypts the plain text that is provided using the Key this TripleDESService was initialized with.
      *
      * @param string The plain text to be encrypted
      *
@@ -39,11 +39,12 @@ final class TripleDESService
         $data = $this->txtsec2binsec($data);
         $data = $this->binsec2hexsec($data);
         $data = urlencode($data);
+
         return $data;
     }
 
     /**
-     * Decrypts the cipher text that is provided using the Key this TripleDESService was initialized with
+     * Decrypts the cipher text that is provided using the Key this TripleDESService was initialized with.
      *
      * @param string Cipher text the cipher text to be decrypted
      *
@@ -54,7 +55,8 @@ final class TripleDESService
         $input = $this->hexsec2binsec($input);
         $input = $this->binsec2txtsec($input);
         $decrypted_data = openssl_decrypt($input, 'DES-EDE3', $this->io_key, OPENSSL_RAW_DATA, '');
-        return trim(chop($decrypted_data));
+
+        return trim(rtrim($decrypted_data));
     }
 
     /**
@@ -69,6 +71,7 @@ final class TripleDESService
             $bin = substr($binsec, $i, 8);
             $data .= chr(bindec($bin));
         }
+
         return $data;
     }
 
@@ -82,9 +85,10 @@ final class TripleDESService
         $data = '';
         for ($i = 0; $i < strlen($txtsec); $i++) {
             $mybyte = decbin(ord($txtsec[$i]));
-            $MyBitSec = substr("00000000", 0, 8 - strlen($mybyte)) . $mybyte;
+            $MyBitSec = substr('00000000', 0, 8 - strlen($mybyte)).$mybyte;
             $data .= $MyBitSec;
         }
+
         return $data;
     }
 
@@ -99,9 +103,10 @@ final class TripleDESService
         for ($i = 0; $i < strlen($binsec); $i += 8) {
             $bin = substr($binsec, $i, 8);
             $hex = dechex(bindec($bin));
-            $hex = substr("00", 0, 2 - strlen($hex)) . $hex;
+            $hex = substr('00', 0, 2 - strlen($hex)).$hex;
             $data .= $hex;
         }
+
         return $data;
     }
 
@@ -114,10 +119,11 @@ final class TripleDESService
     {
         $data = '';
         for ($i = 0; $i < strlen($hexsec); $i += 2) {
-            $byte = decbin(hexdec($hexsec[$i] . $hexsec[$i + 1]));
-            $bitSec = substr("00000000", 0, 8 - strlen($byte)) . $byte;
+            $byte = decbin(hexdec($hexsec[$i].$hexsec[$i + 1]));
+            $bitSec = substr('00000000', 0, 8 - strlen($byte)).$byte;
             $data .= $bitSec;
         }
+
         return $data;
     }
 }

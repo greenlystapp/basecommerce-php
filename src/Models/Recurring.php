@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Greenlyst\BaseCommerce\Models;
 
+use function ArrayHelpers\array_get;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Greenlyst\BaseCommerce\ClientException;
 use Greenlyst\BaseCommerce\Core\Helpers;
 use Greenlyst\BaseCommerce\LogicException;
-use Greenlyst\BaseCommerce\Traits\{HasClient, HasCustomFields, HasErrorMessages};
-use function ArrayHelpers\array_get;
+use Greenlyst\BaseCommerce\Traits\HasClient;
+use Greenlyst\BaseCommerce\Traits\HasCustomFields;
+use Greenlyst\BaseCommerce\Traits\HasErrorMessages;
 
 final class Recurring
 {
@@ -196,7 +198,7 @@ final class Recurring
             if ($this->isVaultTransaction()) {
                 validate_array($this->toCreateRecurringArray(), [
                     'bank_card', 'recurring_transaction_frequency', 'recurring_transaction_start_date',
-                    'bank_card.bank_card_token'
+                    'bank_card.bank_card_token',
                 ]);
             }
         } else {
@@ -245,19 +247,19 @@ final class Recurring
     private function toCreateRecurringArray()
     {
         return clear_array(array_merge($this->getCustomFields(), [
-            'recurring_transaction_frequency' => $this->getFrequency(),
+            'recurring_transaction_frequency'  => $this->getFrequency(),
             'recurring_transaction_start_date' => $this->getStartDate(),
-            'recurring_transaction_end_date' => $this->getEndDate() ? $this->getEndDate() : null,
-            'recurring_transaction_amount' => $this->getAmount(),
-            'bank_card' => $this->getCard()->toCreateCardArray(),
-            'recurring_transaction_type' => self::TRANSACTION_TYPE_SALE
+            'recurring_transaction_end_date'   => $this->getEndDate() ? $this->getEndDate() : null,
+            'recurring_transaction_amount'     => $this->getAmount(),
+            'bank_card'                        => $this->getCard()->toCreateCardArray(),
+            'recurring_transaction_type'       => self::TRANSACTION_TYPE_SALE,
         ]));
     }
 
     private function toCancelRecurringArray()
     {
         return clear_array([
-            'recurring_transaction_id' => $this->getTransactionId()
+            'recurring_transaction_id' => $this->getTransactionId(),
         ]);
     }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Greenlyst\BaseCommerce\Models;
 
-use Greenlyst\BaseCommerce\Contracts\Arrayable;
 use function ArrayHelpers\{array_get};
+use Greenlyst\BaseCommerce\Contracts\Arrayable;
 
 class Address extends Arrayable
 {
@@ -39,6 +39,7 @@ class Address extends Arrayable
     private $country;
 
     const TYPE_BILLING = 'BILLING';
+
     /**
      * @return mixed
      */
@@ -153,6 +154,7 @@ class Address extends Arrayable
 
     /**
      * @param $data
+     *
      * @return Address
      */
     public function fromArray(array $data): self
@@ -176,13 +178,13 @@ class Address extends Arrayable
     public function toArray(): array
     {
         return clear_array([
-            'address_name' => $this->getName(),
-            'address_line1' => $this->getAddressLine1(),
-            'address_line2' => $this->getAddressLine2(),
-            'address_city' => $this->getCity(),
-            'address_state' => $this->getState(),
+            'address_name'    => $this->getName(),
+            'address_line1'   => $this->getAddressLine1(),
+            'address_line2'   => $this->getAddressLine2(),
+            'address_city'    => $this->getCity(),
+            'address_state'   => $this->getState(),
             'address_zipcode' => $this->getZipCode(),
-            'address_country' => $this->getCountry()
+            'address_country' => $this->getCountry(),
         ]);
     }
 }

@@ -49,5 +49,4 @@ class ClientException extends Exception
     {
         return new static($errorMessage);
     }
-
 }

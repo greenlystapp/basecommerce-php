@@ -23,6 +23,7 @@ final class Client
 
     /**
      * Client constructor.
+     *
      * @param $sdkUsername
      * @param $sdkPassword
      * @param $sdkKey
@@ -43,14 +44,14 @@ final class Client
      * @param $data
      * @param int $retryCounter
      *
-     * @return array
-     *
      * @throws ClientException
+     *
+     * @return array
      */
     public function postRequest($uri, $data, $retryCounter = 0)
     {
         $data = array_merge($this->toArray(), [
-            'payload' => $this->getTripleDESService()->encrypt((string)$data)
+            'payload' => $this->getTripleDESService()->encrypt((string) $data),
         ]);
 
         $response = $this->sendRequest($uri, $data);
@@ -60,7 +61,6 @@ final class Client
         }
 
         return $this->processResponse($response, $retryCounter, $uri, $data);
-
     }
 
     /**
@@ -125,7 +125,7 @@ final class Client
     {
         return [
             'gateway_username' => $this->getUsername(),
-            'gateway_password' => $this->getPassword()
+            'gateway_password' => $this->getPassword(),
         ];
     }
 
@@ -137,14 +137,14 @@ final class Client
      */
     private function sendRequest($uri, $data)
     {
-        $url = $this->getEndpointURL() . $uri;
+        $url = $this->getEndpointURL().$uri;
 
         $params = [
             'http' => [
-                'method' => 'POST',
+                'method'  => 'POST',
                 'content' => json_encode($data),
-                'header' => "Content-type: application/x-www-form-urlencoded"
-            ]
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+            ],
         ];
 
         $ctx = stream_context_create($params);
@@ -159,9 +159,9 @@ final class Client
      * @param $uri
      * @param $data
      *
-     * @return array
-     *
      * @throws ClientException
+     *
+     * @return array
      */
     private function checkErrorsAndRetryRequest($retryCounter, $uri, $data): array
     {
@@ -170,11 +170,11 @@ final class Client
 
         if (strpos($error, '403') !== false) {
             throw ClientException::invalidCredentials();
-        } else if (strpos($error, '500') !== false) {
+        } elseif (strpos($error, '500') !== false) {
             throw ClientException::internalServerError();
-        } else if (strpos($error, '404') != false) {
+        } elseif (strpos($error, '404') != false) {
             throw ClientException::invalidURLOrHost();
-        } else if (strpos($error, '400') != false) {
+        } elseif (strpos($error, '400') != false) {
             if ($retryCounter < 10) {
                 sleep(3);
 
@@ -183,11 +183,12 @@ final class Client
                 throw ClientException::errorConnectingToEnvironment();
             }
         }
+
         throw ClientException::unknownError($error);
     }
 
     /**
-     * adapted from http://us.php.net/manual/en/function.stream-get-meta-data.php
+     * adapted from http://us.php.net/manual/en/function.stream-get-meta-data.php.
      *
      * @param $response
      *
@@ -215,9 +216,9 @@ final class Client
      * @param $uri
      * @param $data
      *
-     * @return array
-     *
      * @throws ClientException
+     *
+     * @return array
      */
     private function processResponse($response, $retryCounter, $uri, $data): array
     {
