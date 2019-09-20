@@ -6,6 +6,8 @@
 ![Scrutinizer coverage (GitHub/BitBucket)](https://img.shields.io/scrutinizer/coverage/g/greenlystapp/basecommerce-php)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a4c1c173c2c28ee398b3/maintainability)](https://codeclimate.com/github/greenlystapp/basecommerce-php/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a4c1c173c2c28ee398b3/test_coverage)](https://codeclimate.com/github/greenlystapp/basecommerce-php/test_coverage)
+![Website](https://img.shields.io/website?url=https%3A%2F%2Fbc.opensource.greenlyst.app)
+[![StyleCI](https://github.styleci.io/repos/208425303/shield?branch=master)](https://github.styleci.io/repos/208425303)
 
 # Introduction
 
