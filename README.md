@@ -1,5 +1,11 @@
+![PHP from Packagist](https://img.shields.io/packagist/php-v/greenlyst/basecommerce)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/greenlystapp/basecommerce-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/greenlystapp/basecommerce-php/?branch=master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/greenlystapp/basecommerce-php/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+[![GitHub license](https://img.shields.io/github/license/greenlystapp/basecommerce-php)](https://github.com/greenlystapp/basecommerce-php/blob/master/LICENSE.md)
+![Packagist](https://img.shields.io/packagist/dt/greenlyst/basecommerce)
+![Scrutinizer coverage (GitHub/BitBucket)](https://img.shields.io/scrutinizer/coverage/g/greenlystapp/basecommerce-php)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a4c1c173c2c28ee398b3/maintainability)](https://codeclimate.com/github/greenlystapp/basecommerce-php/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/a4c1c173c2c28ee398b3/test_coverage)](https://codeclimate.com/github/greenlystapp/basecommerce-php/test_coverage)
 
 # Introduction
 
