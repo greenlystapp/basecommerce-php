@@ -1,3 +1,6 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/greenlystapp/basecommerce-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/greenlystapp/basecommerce-php/?branch=master)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/greenlystapp/basecommerce-php/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+
 # Introduction
 
  <h2 style="color:red;">This project is still a work in progress. This is not Production ready yet.</h2>
