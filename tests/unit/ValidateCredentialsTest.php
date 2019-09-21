@@ -20,5 +20,4 @@ class ValidateCredentialsTest extends \Codeception\Test\Unit
     {
         $this->assertTrue(true);
     }
-
 }
