@@ -1,11 +1,12 @@
-<?php 
+<?php
+
 class ValidateCredentialsTest extends \Codeception\Test\Unit
 {
     /**
      * @var \UnitTester
      */
     protected $tester;
-    
+
     protected function _before()
     {
     }
@@ -19,4 +20,5 @@ class ValidateCredentialsTest extends \Codeception\Test\Unit
     {
         $this->assertTrue(true);
     }
+
 }
