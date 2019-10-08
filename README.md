@@ -9,6 +9,7 @@
 ![Website](https://img.shields.io/website?url=https%3A%2F%2Fbc.opensource.greenlyst.app)
 [![StyleCI](https://github.styleci.io/repos/208425303/shield?branch=master)](https://github.styleci.io/repos/208425303)
 [![Build Status](https://travis-ci.org/greenlystapp/basecommerce-php.svg?branch=master)](https://travis-ci.org/greenlystapp/basecommerce-php)
+[![BCH compliance](https://bettercodehub.com/edge/badge/greenlystinc/basecommerce-php?branch=master)](https://bettercodehub.com/)
 
 # Introduction
 
