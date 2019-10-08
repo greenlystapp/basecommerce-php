@@ -234,10 +234,10 @@ class Card
     }
 
     /**
-     * @return Card
      * @throws LogicException
-     *
      * @throws ClientException
+     *
+     * @return Card
      */
     public function add(): self
     {
@@ -259,10 +259,10 @@ class Card
     }
 
     /**
-     * @return $this
      * @throws LogicException
-     *
      * @throws ClientException
+     *
+     * @return $this
      */
     public function update(): self
     {
@@ -283,10 +283,10 @@ class Card
     }
 
     /**
-     * @return Card
      * @throws LogicException
-     *
      * @throws ClientException
+     *
+     * @return Card
      */
     public function delete(): self
     {
