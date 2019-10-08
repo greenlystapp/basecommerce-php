@@ -197,7 +197,9 @@ final class Recurring
         if ($this->isCardTransaction()) {
             if ($this->isVaultTransaction()) {
                 validate_array($this->toCreateRecurringArray(), [
-                    'bank_card', 'recurring_transaction_frequency', 'recurring_transaction_start_date',
+                    'bank_card',
+                    'recurring_transaction_frequency',
+                    'recurring_transaction_start_date',
                     'bank_card.bank_card_token',
                 ]);
             }
