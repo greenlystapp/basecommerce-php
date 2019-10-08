@@ -28,6 +28,7 @@ class Card
     private $expirationDate;
     private $amount;
     private $recurring;
+    private $cipherPayUUID = null;
 
     const CUSTOM_FIELD_PREFIX_BANK_CARD_TRANSACTION = 'bank_card_transaction';
     const CUSTOM_FIELD_PREFIX_RECURRING_TRANSACTION = 'recurring_transaction';
@@ -217,15 +218,34 @@ class Card
     }
 
     /**
-     * @throws ClientException
+     * @return mixed
+     */
+    public function getCipherPayUUID()
+    {
+        return $this->cipherPayUUID;
+    }
+
+    /**
+     * @param mixed $cipherPayUUID
+     */
+    public function setCipherPayUUID($cipherPayUUID): void
+    {
+        $this->cipherPayUUID = $cipherPayUUID;
+    }
+
+    /**
+     * @return Card
      * @throws LogicException
      *
-     * @return Card
+     * @throws ClientException
      */
     public function add(): self
     {
         validate_array($this->toCreateCardArray(), [
-                'bank_card_name', 'bank_card_number', 'bank_card_expiration_month', 'bank_card_expiration_year',
+                'bank_card_name',
+                'bank_card_number',
+                'bank_card_expiration_month',
+                'bank_card_expiration_year',
             ]
         );
 
@@ -239,15 +259,17 @@ class Card
     }
 
     /**
-     * @throws ClientException
+     * @return $this
      * @throws LogicException
      *
-     * @return $this
+     * @throws ClientException
      */
     public function update(): self
     {
         validate_array($this->toCreateCardArray(), [
-                'bank_card_token', 'bank_card_expiration_month', 'bank_card_expiration_year',
+                'bank_card_token',
+                'bank_card_expiration_month',
+                'bank_card_expiration_year',
             ]
         );
 
@@ -261,10 +283,10 @@ class Card
     }
 
     /**
-     * @throws ClientException
+     * @return Card
      * @throws LogicException
      *
-     * @return Card
+     * @throws ClientException
      */
     public function delete(): self
     {
@@ -320,6 +342,7 @@ class Card
             'bank_card_token'            => $this->getToken(),
             'bank_card_billing_address'  => $this->getBillingAddress() ? $this->getBillingAddress()->toArray() : null,
             'bank_card_alias'            => $this->getAlias(),
+            'bank_card_cipher_pay_uuid'  => $this->getCipherPayUUID(),
         ]);
     }
 
