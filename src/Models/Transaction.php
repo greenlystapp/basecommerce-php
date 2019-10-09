@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Greenlyst\BaseCommerce\Models;
 
 use function ArrayHelpers\array_get;
+use function ArrayHelpers\array_has;
 use function ArrayHelpers\array_set;
 use Carbon\Carbon;
 use Greenlyst\BaseCommerce\ClientException;
@@ -28,6 +29,9 @@ final class Transaction
     private $responseCode;
     private $responseMessage;
     private $card;
+    private $isRecurringTransaction = false;
+    private $recurringTransactionIndicator;
+    private $recurringTransactionId;
 
     const TRANSACTION_STATUS_FAILED = 'FAILED';
     const TRANSACTION_STATUS_CREATED = 'CREATED';
@@ -240,6 +244,54 @@ final class Transaction
     }
 
     /**
+     * @return bool
+     */
+    public function isRecurringTransaction(): bool
+    {
+        return $this->isRecurringTransaction;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRecurringTransactionIndicator()
+    {
+        return $this->recurringTransactionIndicator;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRecurringTransactionId()
+    {
+        return $this->recurringTransactionId;
+    }
+
+    /**
+     * @param bool $isRecurringTransaction
+     */
+    public function setIsRecurringTransaction(bool $isRecurringTransaction): void
+    {
+        $this->isRecurringTransaction = $isRecurringTransaction;
+    }
+
+    /**
+     * @param mixed $recurringTransactionIndicator
+     */
+    public function setRecurringTransactionIndicator($recurringTransactionIndicator): void
+    {
+        $this->recurringTransactionIndicator = $recurringTransactionIndicator;
+    }
+
+    /**
+     * @param mixed $recurringTransactionId
+     */
+    public function setRecurringTransactionId($recurringTransactionId): void
+    {
+        $this->recurringTransactionId = $recurringTransactionId;
+    }
+
+    /**
      * @throws LogicException
      * @throws ClientException
      */
@@ -266,8 +318,8 @@ final class Transaction
     }
 
     /**
-     * @throws LogicException
      * @throws ClientException
+     * @throws LogicException
      *
      * @return $this
      */
@@ -353,6 +405,9 @@ final class Transaction
         ]);
     }
 
+    /**
+     * @return array
+     */
     private function toCaptureTransactionArray(): array
     {
         $data = $this->toRefundTransactionArray();
@@ -429,6 +484,10 @@ final class Transaction
         $instance->setTransactionType(array_get($data, 'bank_card_transaction_type.bank_card_transaction_type_name'));
         $instance->setResponseCode(array_get($data, 'bank_card_transaction_response_code'));
         $instance->setResponseMessage(array_get($data, 'bank_card_transaction_response_message'));
+
+        $instance->setIsRecurringTransaction(array_has($data, 'bank_card_transaction_recurring_indicator'));
+        $instance->setRecurringTransactionId(array_get($data, 'recurring_transaction_id'));
+        $instance->setRecurringTransactionIndicator(array_get($data, 'bank_card_transaction_recurring_indicator'));
 
         return $instance;
     }
