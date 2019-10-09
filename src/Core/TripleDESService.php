@@ -56,7 +56,7 @@ final class TripleDESService
         $input = $this->binsec2txtsec($input);
         $decrypted_data = openssl_decrypt($input, 'DES-EDE3', $this->io_key, OPENSSL_RAW_DATA, '');
 
-        return trim(rtrim($decrypted_data));
+        return trim(rtrim($decrypted_data), "\x00..\x1F");
     }
 
     /**

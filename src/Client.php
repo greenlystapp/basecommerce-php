@@ -244,10 +244,8 @@ final class Client
 
         $decrypted_response = $this->tripleDESService->decrypt($responseString);
 
-        $trimmedResponse = trim($decrypted_response, "\x00..\x1F");
-
         fclose($response);
 
-        return json_decode($trimmedResponse, true);
+        return json_decode($decrypted_response, true);
     }
 }

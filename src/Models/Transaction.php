@@ -246,11 +246,19 @@ final class Transaction
     public function authorize()
     {
         if ($this->isVaultTransaction()) {
-            Helpers::validateArray($this->toAuthorizeTransactionArray(), ['bank_card_transaction_type', 'token', 'bank_card_transaction_amount']);
+            Helpers::validateArray($this->toAuthorizeTransactionArray(), [
+                'bank_card_transaction_type',
+                'token',
+                'bank_card_transaction_amount',
+            ]);
         } else {
             Helpers::validateArray($this->toAuthorizeTransactionArray(), [
-                'bank_card_transaction_name', 'bank_card_transaction_card_number', 'bank_card_transaction_expiration_month',
-                'bank_card_transaction_expiration_year', 'bank_card_transaction_type', 'bank_card_transaction_amount',
+                'bank_card_transaction_name',
+                'bank_card_transaction_card_number',
+                'bank_card_transaction_expiration_month',
+                'bank_card_transaction_expiration_year',
+                'bank_card_transaction_type',
+                'bank_card_transaction_amount',
             ]);
         }
 
@@ -258,14 +266,18 @@ final class Transaction
     }
 
     /**
-     * @throws ClientException
+     * @return $this
      * @throws LogicException
      *
-     * @return $this
+     * @throws ClientException
      */
     public function capture()
     {
-        Helpers::validateArray($this->toCaptureTransactionArray(), ['bank_card_transaction_id', 'bank_card_transaction_amount', 'bank_card_transaction_type']);
+        Helpers::validateArray($this->toCaptureTransactionArray(), [
+            'bank_card_transaction_id',
+            'bank_card_transaction_amount',
+            'bank_card_transaction_type',
+        ]);
 
         return $this->processTransaction($this->toCaptureTransactionArray());
     }
@@ -277,11 +289,19 @@ final class Transaction
     public function createSale()
     {
         if ($this->isVaultTransaction()) {
-            Helpers::validateArray($this->toCreateTransactionArray(), ['bank_card_transaction_type', 'token', 'bank_card_transaction_amount']);
+            Helpers::validateArray($this->toCreateTransactionArray(), [
+                'bank_card_transaction_type',
+                'token',
+                'bank_card_transaction_amount',
+            ]);
         } else {
             Helpers::validateArray($this->toCreateTransactionArray(), [
-                'bank_card_transaction_name', 'bank_card_transaction_card_number', 'bank_card_transaction_expiration_month',
-                'bank_card_transaction_expiration_year', 'bank_card_transaction_type', 'bank_card_transaction_amount',
+                'bank_card_transaction_name',
+                'bank_card_transaction_card_number',
+                'bank_card_transaction_expiration_month',
+                'bank_card_transaction_expiration_year',
+                'bank_card_transaction_type',
+                'bank_card_transaction_amount',
             ]);
         }
 
@@ -294,7 +314,11 @@ final class Transaction
      */
     public function refundSale()
     {
-        Helpers::validateArray($this->toRefundTransactionArray(), ['bank_card_transaction_id', 'bank_card_transaction_amount', 'bank_card_transaction_type']);
+        Helpers::validateArray($this->toRefundTransactionArray(), [
+            'bank_card_transaction_id',
+            'bank_card_transaction_amount',
+            'bank_card_transaction_type',
+        ]);
 
         return $this->processTransaction($this->toRefundTransactionArray());
     }
@@ -302,9 +326,9 @@ final class Transaction
     /**
      * @param $data
      *
+     * @return $this
      * @throws ClientException
      *
-     * @return $this
      */
     private function processTransaction($data)
     {
@@ -339,9 +363,9 @@ final class Transaction
     }
 
     /**
+     * @return array
      * @throws LogicException
      *
-     * @return array
      */
     private function toCreateTransactionArray(): array
     {
@@ -369,9 +393,9 @@ final class Transaction
     }
 
     /**
+     * @return array
      * @throws LogicException
      *
-     * @return array
      */
     private function toAuthorizeTransactionArray(): array
     {
@@ -387,6 +411,11 @@ final class Transaction
     }
 
     private function fromArray(array $data)
+    {
+        return self::arrayToInstance($data);
+    }
+
+    public static function arrayToInstance(array $data)
     {
         $instance = new static();
 
