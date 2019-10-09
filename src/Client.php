@@ -24,9 +24,9 @@ final class Client
     /**
      * Client constructor.
      *
-     * @param $sdkUsername
-     * @param $sdkPassword
-     * @param $sdkKey
+     * @param      $sdkUsername
+     * @param      $sdkPassword
+     * @param      $sdkKey
      * @param bool $production
      */
     public function __construct($sdkUsername, $sdkPassword, $sdkKey, bool $production = false)
@@ -40,13 +40,13 @@ final class Client
     }
 
     /**
-     * @param $uri
-     * @param $data
+     * @param     $uri
+     * @param     $data
      * @param int $retryCounter
      *
+     * @return array
      * @throws ClientException
      *
-     * @return array
      */
     public function postRequest($uri, $data, $retryCounter = 0)
     {
@@ -154,14 +154,26 @@ final class Client
         return fopen($url, 'rb', false, $ctx);
     }
 
+//    private function guzzleRequest($uri, $data)
+//    {
+//        $client = new \GuzzleHttp\Client();
+//
+//        $client->request('POST', $uri, [
+//            'form_params' => $data,
+//            'headers'     => [
+//                'Content-type' => 'application/x-www-form-urlencoded',
+//            ],
+//        ]);
+//    }
+
     /**
      * @param $retryCounter
      * @param $uri
      * @param $data
      *
+     * @return array
      * @throws ClientException
      *
-     * @return array
      */
     private function checkErrorsAndRetryRequest($retryCounter, $uri, $data): array
     {
@@ -216,9 +228,9 @@ final class Client
      * @param $uri
      * @param $data
      *
+     * @return array
      * @throws ClientException
      *
-     * @return array
      */
     private function processResponse($response, $retryCounter, $uri, $data): array
     {
@@ -234,7 +246,6 @@ final class Client
 
         $trimmedResponse = trim($decrypted_response, "\x00..\x1F");
 
-        echo $trimmedResponse;
         fclose($response);
 
         return json_decode($trimmedResponse, true);
