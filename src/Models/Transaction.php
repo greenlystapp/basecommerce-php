@@ -266,10 +266,10 @@ final class Transaction
     }
 
     /**
-     * @return $this
      * @throws LogicException
-     *
      * @throws ClientException
+     *
+     * @return $this
      */
     public function capture()
     {
@@ -326,9 +326,9 @@ final class Transaction
     /**
      * @param $data
      *
-     * @return $this
      * @throws ClientException
      *
+     * @return $this
      */
     private function processTransaction($data)
     {
@@ -363,9 +363,9 @@ final class Transaction
     }
 
     /**
-     * @return array
      * @throws LogicException
      *
+     * @return array
      */
     private function toCreateTransactionArray(): array
     {
@@ -393,9 +393,9 @@ final class Transaction
     }
 
     /**
-     * @return array
      * @throws LogicException
      *
+     * @return array
      */
     private function toAuthorizeTransactionArray(): array
     {
