@@ -44,9 +44,9 @@ final class Client
      * @param     $data
      * @param int $retryCounter
      *
-     * @return array
      * @throws ClientException
      *
+     * @return array
      */
     public function postRequest($uri, $data, $retryCounter = 0)
     {
@@ -171,9 +171,9 @@ final class Client
      * @param $uri
      * @param $data
      *
-     * @return array
      * @throws ClientException
      *
+     * @return array
      */
     private function checkErrorsAndRetryRequest($retryCounter, $uri, $data): array
     {
@@ -228,9 +228,9 @@ final class Client
      * @param $uri
      * @param $data
      *
-     * @return array
      * @throws ClientException
      *
+     * @return array
      */
     private function processResponse($response, $retryCounter, $uri, $data): array
     {
