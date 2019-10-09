@@ -7,7 +7,6 @@ use Greenlyst\BaseCommerce\Core\TripleDESService;
 
 class PushNotification
 {
-
     public const NOTIFICATION_ACH_CHANGE = 'ACH CHANGE';
     public const NOTIFICATION_BANK_CARD_TRANSACTION = 'BANK CARD TRANSACTION';
 
@@ -28,7 +27,8 @@ class PushNotification
     }
 
     /**
-     * Handles the data and returns the appropriate Model
+     * Handles the data and returns the appropriate Model.
+     *
      * @return Transaction|null
      */
     public function handle()
@@ -36,11 +36,8 @@ class PushNotification
         $this->notificationId = Arr::get($this->data, 'push_notification_id');
 
         if ($this->getNotificationType() == self::NOTIFICATION_BANK_CARD_TRANSACTION) {
-
             return Transaction::arrayToInstance(Arr::get($this->data, 'push_notification_bank_card_transaction'));
         }
-
-        return null;
     }
 
     public function getNotificationType()
