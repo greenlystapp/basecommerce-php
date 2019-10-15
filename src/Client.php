@@ -215,7 +215,7 @@ final class Client
                 foreach (array_keys($v) as $hh) {
                     $vv = $v[$hh];
                     if (is_string($vv) && substr_count($vv, 'JSESSIONID')) {
-                        $this->sessionId = substr($vv, strpos($vv, '=') + 1, 24);
+                        $this->sessionId = substr($vv, strpos($vv, '=') + 1, 36);
                     }
                 }
             }
@@ -245,6 +245,8 @@ final class Client
         $decrypted_response = $this->tripleDESService->decrypt($responseString);
 
         fclose($response);
+
+        echo $decrypted_response;
 
         return json_decode($decrypted_response, true);
     }
