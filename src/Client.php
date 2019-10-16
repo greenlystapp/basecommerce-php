@@ -219,8 +219,6 @@ final class Client
 
         $decrypted_response = $this->tripleDESService->decrypt($responseString);
 
-        echo $decrypted_response;
-
         return json_decode($decrypted_response, true);
     }
 }
