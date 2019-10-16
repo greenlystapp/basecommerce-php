@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Greenlyst\BaseCommerce;
 
+use ArrayHelpers\Arr;
 use Greenlyst\BaseCommerce\Core\TripleDESService;
+use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
 
 final class Client
 {
@@ -45,6 +48,7 @@ final class Client
      * @param int $retryCounter
      *
      * @throws ClientException
+     * @throws GuzzleException
      *
      * @return array
      */
@@ -56,8 +60,8 @@ final class Client
 
         $response = $this->sendRequest($uri, $data);
 
-        if (!$response) {
-            $this->checkErrorsAndRetryRequest($retryCounter, $uri, $data);
+        if ($response->getStatusCode() !== 200) {
+            $this->checkErrorsAndRetryRequest($response, $retryCounter, $uri, $data);
         }
 
         return $this->processResponse($response, $retryCounter, $uri, $data);
@@ -65,6 +69,7 @@ final class Client
 
     /**
      * @throws ClientException
+     * @throws GuzzleException
      */
     public function validateCredentials()
     {
@@ -133,60 +138,42 @@ final class Client
      * @param $uri
      * @param $data
      *
-     * @return bool|resource
+     * @throws GuzzleException
+     * @return ResponseInterface
      */
     private function sendRequest($uri, $data)
     {
-        $url = $this->getEndpointURL().$uri;
+        $client = new \GuzzleHttp\Client([
+            'base_uri' => $this->getEndpointURL(),
+        ]);
 
-        $params = [
-            'http' => [
-                'method'  => 'POST',
-                'content' => json_encode($data),
-                'header'  => 'Content-type: application/x-www-form-urlencoded',
-            ],
-        ];
+        $response = $client->request('POST', $uri, [
+            'body' => json_encode($data),
+        ]);
 
-        $ctx = stream_context_create($params);
-
-        ini_set('user_agent', 'GL_BaseCommerceClientPHP/1.0');
-
-        return fopen($url, 'rb', false, $ctx);
+        return $response;
     }
 
-//    private function guzzleRequest($uri, $data)
-//    {
-//        $client = new \GuzzleHttp\Client();
-//
-//        $client->request('POST', $uri, [
-//            'form_params' => $data,
-//            'headers'     => [
-//                'Content-type' => 'application/x-www-form-urlencoded',
-//            ],
-//        ]);
-//    }
-
     /**
-     * @param $retryCounter
-     * @param $uri
-     * @param $data
+     * @param ResponseInterface $response
+     *
+     * @param                   $retryCounter
+     * @param                   $uri
+     * @param                   $data
      *
      * @throws ClientException
-     *
+     * @throws GuzzleException
      * @return array
      */
-    private function checkErrorsAndRetryRequest($retryCounter, $uri, $data): array
+    private function checkErrorsAndRetryRequest(ResponseInterface $response, $retryCounter, $uri, $data): array
     {
-        $lastError = error_get_last();
-        $error = $lastError['message'];
-
-        if (strpos($error, '403') !== false) {
+        if ($response->getStatusCode() == 403) {
             throw ClientException::invalidCredentials();
-        } elseif (strpos($error, '500') !== false) {
+        } elseif ($response->getStatusCode() == 500) {
             throw ClientException::internalServerError();
-        } elseif (strpos($error, '404') != false) {
+        } elseif ($response->getStatusCode() == 404) {
             throw ClientException::invalidURLOrHost();
-        } elseif (strpos($error, '400') != false) {
+        } elseif ($response->getStatusCode() == 400) {
             if ($retryCounter < 10) {
                 sleep(3);
 
@@ -196,30 +183,17 @@ final class Client
             }
         }
 
-        throw ClientException::unknownError($error);
+        throw ClientException::unknownError('Unknown error detected');
     }
 
     /**
-     * adapted from http://us.php.net/manual/en/function.stream-get-meta-data.php.
-     *
      * @param $response
      *
      * @return void
      */
-    private function setSessionIdFromMetaData($response): void
+    private function setSessionIdFromMetaData(ResponseInterface $response): void
     {
-        $meta = stream_get_meta_data($response);
-        foreach (array_keys($meta) as $h) {
-            $v = $meta[$h];
-            if (is_array($v)) {
-                foreach (array_keys($v) as $hh) {
-                    $vv = $v[$hh];
-                    if (is_string($vv) && substr_count($vv, 'JSESSIONID')) {
-                        $this->sessionId = substr($vv, strpos($vv, '=') + 1, 36);
-                    }
-                }
-            }
-        }
+        $this->sessionId = str_replace('JSESSIONID=', '', explode(';', $response->getHeaderLine('Set-Cookie'))[0]);
     }
 
     /**
@@ -229,22 +203,21 @@ final class Client
      * @param $data
      *
      * @throws ClientException
+     * @throws GuzzleException
      *
      * @return array
      */
-    private function processResponse($response, $retryCounter, $uri, $data): array
+    private function processResponse(ResponseInterface $response, $retryCounter, $uri, $data): array
     {
-        $responseString = stream_get_contents($response);
+        $responseString = $response->getBody()->getContents();
 
         $this->setSessionIdFromMetaData($response);
 
         if ($responseString === false) {
-            $this->checkErrorsAndRetryRequest($retryCounter, $uri, $data);
+            $this->checkErrorsAndRetryRequest($response, $retryCounter, $uri, $data);
         }
 
         $decrypted_response = $this->tripleDESService->decrypt($responseString);
-
-        fclose($response);
 
         echo $decrypted_response;
 
