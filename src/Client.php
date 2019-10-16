@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Greenlyst\BaseCommerce;
 
-use ArrayHelpers\Arr;
 use Greenlyst\BaseCommerce\Core\TripleDESService;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
@@ -139,6 +138,7 @@ final class Client
      * @param $data
      *
      * @throws GuzzleException
+     *
      * @return ResponseInterface
      */
     private function sendRequest($uri, $data)
@@ -156,13 +156,13 @@ final class Client
 
     /**
      * @param ResponseInterface $response
-     *
      * @param                   $retryCounter
      * @param                   $uri
      * @param                   $data
      *
      * @throws ClientException
      * @throws GuzzleException
+     *
      * @return array
      */
     private function checkErrorsAndRetryRequest(ResponseInterface $response, $retryCounter, $uri, $data): array
