@@ -59,7 +59,8 @@ final class Client
 
         $response = $this->sendRequest($uri, $data);
 
-        if ($response->getStatusCode() !== 200) {
+        if ($response->getStatusCode() != 200) {
+
             $this->checkErrorsAndRetryRequest($response, $retryCounter, $uri, $data);
         }
 
