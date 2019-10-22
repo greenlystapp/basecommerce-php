@@ -1,0 +1,454 @@
+23:52:47.314 -- ----- OpenVPN Start -----
+
+23:52:47.315 -- EVENT: CORE_THREAD_ACTIVE
+
+23:52:47.317 -- Frame=512/2048/512 mssfix-ctrl=1250
+
+23:52:47.318 -- UNUSED OPTIONS
+5 [nobind] 
+6 [verb] [3] 
+7 [sndbuf] [0] 
+8 [rcvbuf] [0] 
+9 [socket-flags] [TCP_NODELAY] 
+
+
+23:52:47.318 -- EVENT: RESOLVE
+
+23:52:47.320 -- Contacting 66.71.254.233:1194 via UDP
+
+23:52:47.321 -- EVENT: WAIT
+
+23:52:47.323 -- Connecting to [66.71.254.233]:1194 (66.71.254.233) via UDPv4
+
+23:52:47.462 -- EVENT: CONNECTING
+
+23:52:47.464 -- Tunnel Options:V4,dev-type tun,link-mtu 1542,tun-mtu 1500,proto UDPv4,comp-lzo,keydir 1,cipher BF-CBC,auth SHA1,keysize 128,tls-auth,key-method 2,tls-client
+
+23:52:47.465 -- Creds: Username/PasswordEmpty
+
+23:52:47.466 -- Peer Info:
+IV_GUI_VER=PT30Android
+IV_VER=3.2
+IV_PLAT=android
+IV_NCP=2
+IV_TCPNL=1
+IV_PROTO=2
+IV_LZO_STUB=1
+IV_COMP_STUB=1
+IV_COMP_STUBv2=1
+IV_AUTO_SESS=1
+IV_BS64DL=1
+
+
+23:52:47.609 -- VERIFY OK : depth=2
+cert. version     : 3
+serial number     : 4D:83:A2:A4
+issuer name       : CN=OpenVPN CA
+subject name      : CN=OpenVPN CA
+issued  on        : 2011-03-11 18:21:24
+expires on        : 2021-03-15 18:21:24
+signed using      : RSA with SHA1
+RSA key size      : 1024 bits
+basic constraints : CA=true
+
+
+23:52:47.610 -- VERIFY OK : depth=1
+cert. version     : 3
+serial number     : 12:34
+issuer name       : CN=OpenVPN CA
+subject name      : CN=PT Transitional 20150615
+issued  on        : 2015-06-15 20:00:03
+expires on        : 2045-06-07 20:00:03
+signed using      : RSA with SHA-256
+RSA key size      : 2048 bits
+basic constraints : CA=true
+cert. type        : SSL CA
+key usage         : Key Cert Sign, CRL Sign
+
+
+23:52:47.611 -- VERIFY OK : depth=0
+cert. version     : 3
+serial number     : 02
+issuer name       : CN=PT Transitional 20150615
+subject name      : CN=atl2.privatetunnel.com
+issued  on        : 2019-08-30 15:47:28
+expires on        : 2049-08-22 15:47:28
+signed using      : RSA with SHA-256
+RSA key size      : 2048 bits
+basic constraints : CA=false
+cert. type        : SSL Server
+key usage         : Digital Signature, Key Encipherment
+ext key usage     : TLS Web Server Authentication
+
+
+23:52:47.948 -- SSL Handshake: TLSv1.2/TLS-ECDHE-RSA-WITH-AES-256-GCM-SHA384
+
+23:52:47.950 -- Session is ACTIVE
+
+23:52:47.952 -- EVENT: GET_CONFIG
+
+23:52:47.957 -- Sending PUSH_REQUEST to server...
+
+23:52:48.082 -- OPTIONS:
+0 [auth-token] ...
+1 [auth-token-user] [cGF3ZWxtYXI5QGdtYWlsLmNvbQ==] 
+2 [route-gateway] [10.9.0.1] 
+3 [ifconfig] [10.9.106.135] [255.255.0.0] 
+4 [client-ip] [89.229.21.219] 
+5 [ping] [8] 
+6 [ping-restart] [40] 
+7 [reneg-sec] [3600] 
+8 [cipher] [AES-128-GCM] 
+9 [compress] [stub-v2] 
+10 [peer-id] [14609] 
+11 [topology] [subnet] 
+12 [explicit-exit-notify] 
+13 [redirect-gateway] [def1] 
+14 [dhcp-option] [DNS] [10.9.0.1] 
+15 [sndbuf] [0] 
+16 [rcvbuf] [0] 
+17 [socket-flags] [TCP_NODELAY] 
+18 [block-ipv6] 
+
+
+23:52:48.084 -- Session user: pawelmar9@gmail.com
+
+23:52:48.085 -- Session token: [redacted]
+
+23:52:48.086 -- PROTOCOL OPTIONS:
+  cipher: AES-128-GCM
+  digest: SHA1
+  compress: COMP_STUBv2
+  peer ID: 14609
+
+23:52:48.086 -- EVENT: ASSIGN_IP
+
+23:52:48.188 -- TunPersist: saving tun context:
+Session Name: 66.71.254.233
+Layer: OSI_LAYER_3
+Remote Address: 66.71.254.233
+Tunnel Addresses:
+  10.9.106.135/16 -> 10.9.0.1
+Reroute Gateway: IPv4=1 IPv6=0 flags=[ ENABLE REROUTE_GW DEF1 IPv4 ]
+Block IPv6: yes
+Add Routes:
+Exclude Routes:
+DNS Servers:
+  10.9.0.1
+Search Domains:
+
+
+23:52:48.190 -- Connected via tun
+
+23:52:48.191 -- Comp-stubV2 init
+
+23:52:48.196 -- EVENT: CONNECTED info='pawelmar9@gmail.com@66.71.254.233:1194 (66.71.254.233) via 89.229.21.219/UDPv4 on tun/10.9.106.135/ gw=[10.9.0.1/]' trans=TO_CONNECTED
+
+23:53:31.912 -- EVENT: DISCONNECTED trans=TO_DISCONNECTED
+
+23:53:31.917 -- EVENT: CORE_THREAD_INACTIVE trans=TO_DISCONNECTED
+
+23:53:31.918 -- Tunnel bytes per CPU second: 0
+
+23:53:31.918 -- ----- OpenVPN Stop -----
+
+23:53:33.986 -- ----- OpenVPN Start -----
+
+23:53:33.987 -- EVENT: CORE_THREAD_ACTIVE trans=TO_DISCONNECTED
+
+23:53:33.994 -- Frame=512/2048/512 mssfix-ctrl=1250
+
+23:53:34.001 -- UNUSED OPTIONS
+5 [nobind] 
+6 [verb] [3] 
+7 [sndbuf] [0] 
+8 [rcvbuf] [0] 
+9 [socket-flags] [TCP_NODELAY] 
+20 [ignore-unknown-option] [ptproxy] [ptproxy-random] 
+21 [connect-retry] [1] 
+
+
+23:53:34.003 -- EVENT: RESOLVE trans=TO_DISCONNECTED
+
+23:53:34.290 -- Contacting 172.65.193.51:8000 via PTProxy
+
+23:53:34.292 -- EVENT: WAIT_PROXY trans=TO_DISCONNECTED
+
+23:53:34.315 -- EVENT: WAIT trans=TO_DISCONNECTED
+
+23:53:34.328 -- OBFS key derivation client=1 src=npvlennutetavirpPHPSESSIONID=7ac915709d5db7f88d98a1a3e6c54d1dnpvlennutetavirp sha256=7db4ba4c88fdcbfb3141300db644dcaebe673cf20308b242dd02fc311f412d87
+
+23:53:34.329 -- OBFS key derivation client=0 src=privatetunnelvpnd1d45c6e3a1a89d88f7bd5d907519ca7=DINOISSESPHPprivatetunnelvpn sha256=b72a1e712baf107249daa36872327aa5b3768560991c24fd6bbe8e453e58548c
+
+23:53:34.330 -- OBFS REQUEST:
+GET / HTTP/1.1
+Accept: text/html, application/xhtml+xml, */*
+Accept-Language: en-US
+User-Agent: Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko
+Accept-Encoding: gzip,deflate
+Host: rxmrrn
+Connection: Keep-Alive
+Cookie: PHPSESSIONID=7ac915709d5db7f88d98a1a3e6c54d1d
+
+
+23:53:44.301 -- Server poll timeout, trying next remote entry...
+
+23:53:44.303 -- EVENT: RECONNECTING trans=TO_DISCONNECTED
+
+23:53:44.309 -- Contacting 172.65.193.51:8000 via PTProxy
+
+23:53:44.310 -- EVENT: WAIT_PROXY
+
+23:53:44.321 -- EVENT: CONNECTION_TIMEOUT
+
+23:53:44.326 -- EVENT: DISCONNECTED
+
+23:53:44.353 -- ----- OpenVPN Start -----
+
+23:53:44.354 -- EVENT: CORE_THREAD_ACTIVE
+
+23:53:44.369 -- Frame=512/2048/512 mssfix-ctrl=1250
+
+23:53:44.379 -- UNUSED OPTIONS
+5 [nobind] 
+6 [verb] [3] 
+7 [sndbuf] [0] 
+8 [rcvbuf] [0] 
+9 [socket-flags] [TCP_NODELAY] 
+20 [ignore-unknown-option] [ptproxy] [ptproxy-random] 
+21 [connect-retry] [1] 
+
+
+23:53:44.380 -- EVENT: RESOLVE
+
+23:53:44.383 -- Contacting 107.150.22.189:25 via PTProxy
+
+23:53:44.384 -- EVENT: WAIT_PROXY
+
+23:53:54.406 -- Server poll timeout, trying next remote entry...
+
+23:53:54.406 -- EVENT: RECONNECTING
+
+23:53:54.410 -- Contacting 107.150.22.189:25 via PTProxy
+
+23:53:54.410 -- EVENT: WAIT_PROXY
+
+23:53:54.413 -- EVENT: CONNECTION_TIMEOUT
+
+23:53:54.418 -- EVENT: DISCONNECTED
+
+23:53:54.452 -- ----- OpenVPN Start -----
+
+23:53:54.452 -- EVENT: CORE_THREAD_ACTIVE
+
+23:53:54.460 -- Frame=512/2048/512 mssfix-ctrl=1250
+
+23:53:54.461 -- UNUSED OPTIONS
+5 [nobind] 
+6 [verb] [3] 
+7 [sndbuf] [0] 
+8 [rcvbuf] [0] 
+9 [socket-flags] [TCP_NODELAY] 
+20 [ignore-unknown-option] [ptproxy] [ptproxy-random] 
+21 [connect-retry] [1] 
+
+
+23:53:54.462 -- EVENT: RESOLVE
+
+23:53:54.601 -- Contacting 172.65.193.47:25 via PTProxy
+
+23:53:54.602 -- EVENT: WAIT_PROXY
+
+23:54:04.635 -- Server poll timeout, trying next remote entry...
+
+23:54:04.637 -- EVENT: RECONNECTING
+
+23:54:04.644 -- Contacting 172.65.193.47:25 via PTProxy
+
+23:54:04.645 -- EVENT: WAIT_PROXY
+
+23:54:04.650 -- EVENT: CONNECTION_TIMEOUT
+
+23:54:04.660 -- EVENT: DISCONNECTED
+
+23:54:04.663 -- ----- OpenVPN Start -----
+
+23:54:04.664 -- EVENT: CORE_THREAD_ACTIVE
+
+23:54:04.667 -- Frame=512/2048/512 mssfix-ctrl=1250
+
+23:54:04.668 -- UNUSED OPTIONS
+5 [nobind] 
+6 [verb] [3] 
+7 [sndbuf] [0] 
+8 [rcvbuf] [0] 
+9 [socket-flags] [TCP_NODELAY] 
+20 [ignore-unknown-option] [ptproxy] [ptproxy-random] 
+21 [connect-retry] [1] 
+
+
+23:54:04.669 -- EVENT: RESOLVE
+
+23:54:04.671 -- Contacting 66.71.254.253:3128 via PTProxy
+
+23:54:04.672 -- EVENT: WAIT_PROXY
+
+23:54:04.801 -- EVENT: WAIT
+
+23:54:04.815 -- OBFS key derivation client=1 src=npvlennutetavirpPHPSESSIONID=f440c822f01c5587a918a98b5cabc454npvlennutetavirp sha256=5a48eb553135e25a56aeb37d85cdf66acf59d19e707c54384202464f15481578
+
+23:54:04.816 -- OBFS key derivation client=0 src=privatetunnelvpn454cbac5b89a819a7855c10f228c044f=DINOISSESPHPprivatetunnelvpn sha256=78d99184caabf8dc785da19c08fb7eb7656863252f14f0b2c3ee69beddd033b7
+
+23:54:04.816 -- OBFS REQUEST:
+GET / HTTP/1.1
+Accept: text/html, application/xhtml+xml, */*
+Accept-Language: en-US
+User-Agent: Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko
+Accept-Encoding: gzip,deflate
+Host: mxnloqbp
+Connection: Keep-Alive
+Cookie: PHPSESSIONID=f440c822f01c5587a918a98b5cabc454
+
+
+23:54:04.968 -- OBFS REPLY:
+HTTP Reply
+version=1/1
+status_code=200
+status_text=OK
+[0] Server=nginx
+[1] Date=Thu, 17 Oct 2019 21:54:05 GMT
+[2] Content-Type=text/html
+[3] Transfer-Encoding=chunked
+[4] Connection=keep-alive
+[5] Expires=Thu, 19 Nov 1981 08:52:00 GMT
+[6] Cache-Control=no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+[7] Pragma=no-cache
+[8] Content-Encoding=gzip
+
+23:54:04.970 -- Connecting to [66.71.254.253]:3128 (66.71.254.253) via TCPv4-via-PTProxy
+
+23:54:05.117 -- PT Proxy: Skipped 1 byte(s) of HTML
+
+23:54:05.119 -- EVENT: CONNECTING
+
+23:54:05.125 -- Tunnel Options:V4,dev-type tun,link-mtu 1542,tun-mtu 1500,proto UDPv4,comp-lzo,keydir 1,cipher BF-CBC,auth SHA1,keysize 128,tls-auth,key-method 2,tls-client
+
+23:54:05.127 -- Creds: Username/PasswordEmpty
+
+23:54:05.129 -- Peer Info:
+IV_GUI_VER=PT30Android
+IV_VER=3.2
+IV_PLAT=android
+IV_NCP=2
+IV_TCPNL=1
+IV_PROTO=2
+IV_LZO_STUB=1
+IV_COMP_STUB=1
+IV_COMP_STUBv2=1
+IV_AUTO_SESS=1
+IV_BS64DL=1
+
+
+23:54:05.239 -- VERIFY OK : depth=2
+cert. version     : 3
+serial number     : 4D:83:A2:A4
+issuer name       : CN=OpenVPN CA
+subject name      : CN=OpenVPN CA
+issued  on        : 2011-03-11 18:21:24
+expires on        : 2021-03-15 18:21:24
+signed using      : RSA with SHA1
+RSA key size      : 1024 bits
+basic constraints : CA=true
+
+
+23:54:05.241 -- VERIFY OK : depth=1
+cert. version     : 3
+serial number     : 12:34
+issuer name       : CN=OpenVPN CA
+subject name      : CN=PT Transitional 20150615
+issued  on        : 2015-06-15 20:00:03
+expires on        : 2045-06-07 20:00:03
+signed using      : RSA with SHA-256
+RSA key size      : 2048 bits
+basic constraints : CA=true
+cert. type        : SSL CA
+key usage         : Key Cert Sign, CRL Sign
+
+
+23:54:05.242 -- VERIFY OK : depth=0
+cert. version     : 3
+serial number     : 02
+issuer name       : CN=PT Transitional 20150615
+subject name      : CN=atl2.privatetunnel.com
+issued  on        : 2019-08-30 15:47:28
+expires on        : 2049-08-22 15:47:28
+signed using      : RSA with SHA-256
+RSA key size      : 2048 bits
+basic constraints : CA=false
+cert. type        : SSL Server
+key usage         : Digital Signature, Key Encipherment
+ext key usage     : TLS Web Server Authentication
+
+
+23:54:05.667 -- SSL Handshake: TLSv1.2/TLS-ECDHE-RSA-WITH-AES-256-GCM-SHA384
+
+23:54:05.668 -- Session is ACTIVE
+
+23:54:05.668 -- EVENT: GET_CONFIG
+
+23:54:05.671 -- Sending PUSH_REQUEST to server...
+
+23:54:05.776 -- OPTIONS:
+0 [auth-token] ...
+1 [auth-token-user] [cGF3ZWxtYXI5QGdtYWlsLmNvbQ==] 
+2 [route-gateway] [10.9.0.1] 
+3 [ifconfig] [10.9.106.182] [255.255.0.0] 
+4 [client-ip] [66.71.254.224] 
+5 [ping] [8] 
+6 [ping-restart] [40] 
+7 [reneg-sec] [3600] 
+8 [cipher] [AES-128-GCM] 
+9 [compress] [stub-v2] 
+10 [peer-id] [16915] 
+11 [topology] [subnet] 
+12 [explicit-exit-notify] 
+13 [redirect-gateway] [def1] 
+14 [dhcp-option] [DNS] [10.9.0.1] 
+15 [sndbuf] [0] 
+16 [rcvbuf] [0] 
+17 [socket-flags] [TCP_NODELAY] 
+18 [block-ipv6] 
+
+
+23:54:05.779 -- Session user: pawelmar9@gmail.com
+
+23:54:05.781 -- Session token: [redacted]
+
+23:54:05.783 -- PROTOCOL OPTIONS:
+  cipher: AES-128-GCM
+  digest: SHA1
+  compress: COMP_STUBv2
+  peer ID: 16915
+
+23:54:05.784 -- EVENT: ASSIGN_IP
+
+23:54:05.872 -- TunPersist: saving tun context:
+Session Name: 66.71.254.241
+Layer: OSI_LAYER_3
+Remote Address: 66.71.254.253
+Tunnel Addresses:
+  10.9.106.182/16 -> 10.9.0.1
+Reroute Gateway: IPv4=1 IPv6=0 flags=[ ENABLE REROUTE_GW DEF1 IPv4 ]
+Block IPv6: yes
+Add Routes:
+Exclude Routes:
+DNS Servers:
+  10.9.0.1
+Search Domains:
+
+
+23:54:05.874 -- Connected via tun
+
+23:54:05.874 -- Comp-stubV2 init
+
+23:54:05.875 -- EVENT: CONNECTED info='pawelmar9@gmail.com@66.71.254.253:3128 (66.71.254.253) via 66.71.254.224/TCPv4-via-PTProxy on tun/10.9.106.182/ gw=[10.9.0.1/]' trans=TO_CONNECTED
